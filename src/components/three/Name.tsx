@@ -39,7 +39,7 @@ export default function Name(props: NameProps) {
 		mouseStrength: { value: props.mouseStrength },
 	};
 
-		const fov = 10;
+	const fov = 10;
 	const distance = 1000;
 
 	// Create a grid of evenly spaced points using BufferGeometry
