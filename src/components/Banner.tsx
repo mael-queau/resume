@@ -1,7 +1,4 @@
-import { Canvas, ThreeElements, useFrame, useThree } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
-import { useRef, useState } from "react";
-import * as THREE from "three";
+import { Canvas, useThree } from "@react-three/fiber";
 import Name from "./three/Name";
 import Particles from "./three/Particles";
 
