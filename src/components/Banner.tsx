@@ -5,26 +5,36 @@ import * as THREE from "three";
 import Name from "./three/Name";
 import Particles from "./three/Particles";
 
-export default function Banner() {
+interface BannerProps {
+	height: number;
+	width: number;
+}
+
+export default function Banner(props: BannerProps) {
 	return (
 		<Canvas
 			camera={{
 				fov: 10,
-				aspect: window.innerWidth / window.innerHeight,
+				aspect: props.width / props.height,
 				near: 0.1,
 				far: 5000,
 				position: [0, 0, 1000],
 			}}
 		>
-			<Content />
+			<Content height={props.height} width={props.width} />
 		</Canvas>
 	);
 }
 
-function Content() {
+interface ContentProps {
+	height: number;
+	width: number;
+}
+
+function Content(props: ContentProps) {
 	const gl = useThree((state) => state.gl);
 
-	gl.setSize(window.innerWidth, window.innerHeight);
+	gl.setSize(props.width, props.height);
 
 	return (
 		<>
