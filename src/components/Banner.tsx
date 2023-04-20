@@ -2,8 +2,8 @@ import { Canvas, ThreeElements, useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
 import { useRef, useState } from "react";
 import * as THREE from "three";
-import Name from "./components/three/Name";
-import Particles from "./components/three/Particles";
+import Name from "./three/Name";
+import Particles from "./three/Particles";
 
 export default function Banner() {
 	return (
