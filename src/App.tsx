@@ -7,7 +7,7 @@ function App() {
 		<>
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
-			<Header />
+			<Header width={window.innerWidth} height={window.innerHeight} />
 		</>
 	);
 }

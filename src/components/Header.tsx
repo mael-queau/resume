@@ -1,10 +1,15 @@
 import ParticlesBanner from "./ParticlesBanner";
 
-export default function Header() {
+export interface HeaderProps {
+	width: number;
+	height: number;
+}
+
+export default function Header(props: HeaderProps) {
 	return (
 		<ParticlesBanner
-			width={window.innerWidth}
-			height={window.innerHeight - 100}
+			width={props.width}
+			height={props.height}
 			camera={{
 				fov: 10,
 				far: 5000,
