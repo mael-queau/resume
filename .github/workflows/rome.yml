@@ -2,11 +2,9 @@ name: Rome CI
 
 on:
   push:
-    branches:
-    - main
-    - chore/rome_integration # This is temporary
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -16,7 +14,7 @@ jobs:
       - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.node-version'
+          node-version-file: ".node-version"
       - name: Install packages
         run: npm install
       - name: Run Rome
