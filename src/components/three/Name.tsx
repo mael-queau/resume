@@ -3,7 +3,7 @@ import { ThreeElements, extend, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { Mesh, ShaderMaterial, Vector3 } from "three";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
-import Comfortaa from "../../assets/fonts/Comfortaa-Bold.ttf";
+import Comfortaa from "../../assets/fonts/Comfortaa-VariableFont_wght.ttf";
 import { calcViewportSize } from "../../utils/viewport";
 
 extend({
@@ -47,12 +47,6 @@ export interface NameProps {
 
 export default function Name(props: NameProps & ThreeMeshProps) {
 	const materialRef = useRef<ShaderMaterial>(null);
-
-	// const uniforms = {
-	// 	mousePosition: { value: new Vector3() },
-	// 	mouseRadius: { value: props.mouseEffect.radius * 0.75 },
-	// 	mouseStrength: { value: props.mouseEffect.strength },
-	// };
 
 	const uniforms = useMemo(
 		() => ({
