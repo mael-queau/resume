@@ -1,61 +1,57 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import Name from "./three/Name";
-import Particles from "./three/Particles";
+import Name, { NameProps } from "./three/Name";
+import Particles, { PointsProps } from "./three/Particles";
+import { useEffect } from "react";
 
-interface BannerProps {
-	height: number;
-	width: number;
+interface BannerProps extends ContentProps {
+	camera: {
+		near: number;
+		far: number;
+	} & NameProps["camera"];
 }
 
 export default function Banner(props: BannerProps) {
 	return (
 		<Canvas
 			camera={{
-				fov: 10,
+				fov: props.camera.fov,
 				aspect: props.width / props.height,
-				near: 0.1,
-				far: 5000,
-				position: [0, 0, 1000],
+				near: props.camera.near,
+				far: props.camera.far,
+				position: [
+					props.camera.position.x,
+					props.camera.position.y,
+					props.camera.position.z,
+				],
 			}}
 		>
-			<Content height={props.height} width={props.width} />
+			<Content {...props} />
 		</Canvas>
 	);
 }
 
-interface ContentProps {
-	height: number;
-	width: number;
-}
+type ContentProps = PointsProps & NameProps;
 
 function Content(props: ContentProps) {
 	const gl = useThree((state) => state.gl);
 
 	gl.setSize(props.width, props.height);
 
+	useEffect(() => {
+		gl.setSize(props.width, props.height);
+	}, [props.height, props.width]);
+
 	return (
 		<>
 			<Name
-				text="MAËL QUÉAU"
-				fontHeight={0.5}
-				fontSize={16}
-				mouseRadius={40}
-				mouseStrength={10}
-				position={[-1.2, 0, 0]}
+				{...props}
+				position={[
+					props.text.position.x,
+					props.text.position.y,
+					props.text.position.z,
+				]}
 			/>
-			<Particles
-				mouseRadius={40}
-				mouseStrength={10}
-				colorSeed={3452}
-				maxPointsSize={8}
-				minPointsSize={2}
-				noiseScaleX={0.01}
-				noiseScaleY={0.01}
-				noiseStrength={100}
-				spacing={1.5}
-				margin={15}
-				noiseSpeed={0.1}
-			/>
+			<Particles {...props} />
 		</>
 	);
 }

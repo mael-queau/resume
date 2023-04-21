@@ -8,6 +8,7 @@ import {
 	Points,
 	PointsMaterial,
 } from "three";
+import { calcViewportSize } from "../../utils/viewport";
 
 extend({
 	ShaderMaterial,
@@ -19,45 +20,62 @@ extend({
 
 type ThreePointsProps = ThreeElements["bufferGeometry"];
 
-interface PointsProps extends ThreePointsProps {
-	minPointsSize: number;
-	maxPointsSize: number;
-	noiseScaleX: number;
-	noiseScaleY: number;
-	noiseStrength: number;
-	noiseSpeed: number;
-	colorSeed: number;
-	mouseRadius: number;
-	mouseStrength: number;
-	margin: number;
-	spacing: number;
+export interface PointsProps {
+	height: number;
+	width: number;
+	points: {
+		size: {
+			min: number;
+			max: number;
+		};
+		spacing: number;
+		margin: number;
+		oddRowsOffset: number;
+	};
+	noise: {
+		scale: {
+			x: number;
+			y: number;
+		};
+		strength: number;
+		speed: number;
+	};
+	mouseEffect: {
+		radius: number;
+		strength: number;
+	};
+	color: {
+		seed: number;
+		color1: string;
+		color2: string;
+	};
+	camera: {
+		fov: number;
+		position: {
+			x: number;
+			y: number;
+			z: number;
+		};
+	};
 }
 
-export default function Particles(props: PointsProps) {
+export default function Particles(props: PointsProps & ThreePointsProps) {
 	const materialRef = useRef<ShaderMaterial>(null);
-
-	const pointsConfig = {
-		minSize: 2,
-		maxSize: 8,
-		spacing: 1.5,
-		margin: 15,
-		mouseStrength: 8,
-		mouseRadius: 50,
-		oddRowsOffset: 0.5,
-	};
-
-	const fov = 10;
-	const distance = 1000;
 
 	// Create a grid of evenly spaced points using BufferGeometry
 	// First, calculate the number of points needed to fill the viewport
-	const viewportSize = calcViewportSize(fov, distance);
+	const viewportSize = calcViewportSize(
+		props.height,
+		props.width,
+		props.camera.fov,
+		props.camera.position.z,
+	);
 
 	const numPointsX = Math.floor(
-		(viewportSize.width - props.margin * 2) / props.spacing,
+		(viewportSize.width - props.points.margin * 2) / props.points.spacing,
 	);
 	const numPointsY = Math.floor(
-		(viewportSize.height - props.margin * 2) / props.spacing,
+		(viewportSize.height - props.points.margin * 2) / props.points.spacing,
 	);
 
 	const numPoints = numPointsX * numPointsY;
@@ -70,19 +88,19 @@ export default function Particles(props: PointsProps) {
 		for (let x = 0; x < numPointsX; x++) {
 			for (let y = 0; y < numPointsY; y++) {
 				positions[i] =
-					x * pointsConfig.spacing -
+					x * props.points.spacing -
 					viewportSize.width / 2 +
-					pointsConfig.margin;
+					props.points.margin;
 
 				// Offset every other row by half a spacing
 				if (y % 2 === 0) {
-					positions[i] += pointsConfig.spacing * pointsConfig.oddRowsOffset;
+					positions[i] += props.points.spacing * props.points.oddRowsOffset;
 				}
 
 				positions[i + 1] =
-					y * pointsConfig.spacing -
+					y * props.points.spacing -
 					viewportSize.height / 2 +
-					pointsConfig.margin;
+					props.points.margin;
 
 				positions[i + 2] = 0;
 				i += 3;
@@ -92,23 +110,48 @@ export default function Particles(props: PointsProps) {
 		return positions;
 	}, [numPoints]);
 
-	const uniforms = {
-		time: { value: 0 },
-		pointsMinSize: { value: props.minPointsSize },
-		pointsMaxSize: { value: props.maxPointsSize },
-		noiseScaleX: { value: props.noiseScaleX },
-		noiseScaleY: { value: props.noiseScaleY },
-		noiseStrength: { value: props.noiseStrength },
-		colorSeed: { value: props.colorSeed },
-		mousePosition: { value: new Vector3() },
-		mouseRadius: { value: props.mouseRadius },
-		mouseStrength: { value: props.mouseStrength },
-	};
+	// const uniforms = {
+	// 	time: { value: 0 },
+	// 	pointsMinSize: { value: props.points.size.min },
+	// 	pointsMaxSize: { value: props.points.size.max },
+	// 	noiseScaleX: { value: props.noise.scale.x },
+	// 	noiseScaleY: { value: props.noise.scale.y },
+	// 	noiseStrength: { value: props.noise.strength },
+	// 	colorSeed: { value: props.color.seed },
+	// 	mousePosition: { value: new Vector3() },
+	// 	mouseRadius: { value: props.mouseEffect.radius },
+	// 	mouseStrength: { value: props.mouseEffect.strength },
+	// };
+
+	const uniforms = useMemo(
+		() => ({
+			time: { value: 0 },
+			pointsMinSize: { value: props.points.size.min },
+			pointsMaxSize: { value: props.points.size.max },
+			noiseScaleX: { value: props.noise.scale.x },
+			noiseScaleY: { value: props.noise.scale.y },
+			noiseStrength: { value: props.noise.strength },
+			colorSeed: { value: props.color.seed },
+			mousePosition: { value: new Vector3() },
+			mouseRadius: { value: props.mouseEffect.radius },
+			mouseStrength: { value: props.mouseEffect.strength },
+		}),
+		[
+			props.points.size.min,
+			props.points.size.max,
+			props.noise.scale.x,
+			props.noise.scale.y,
+			props.noise.strength,
+			props.color.seed,
+			props.mouseEffect.radius,
+			props.mouseEffect.strength,
+		],
+	);
 
 	useFrame(({ clock, mouse }) => {
 		if (materialRef.current) {
 			materialRef.current.uniforms.time.value =
-				clock.getElapsedTime() * props.noiseSpeed;
+				clock.getElapsedTime() * props.noise.speed;
 			// Careful with the mouse position, it's in normalized coordinates
 			// (-1 to +1) so we need to convert it to viewport coordinates
 			// (0 to viewportWidth/Height)
@@ -135,19 +178,6 @@ export default function Particles(props: PointsProps) {
 			/>
 		</points>
 	);
-}
-
-function calcViewportSize(fov: number, distance: number) {
-	const width = window.innerWidth;
-	const height = window.innerHeight;
-	const aspectRatio = width / height;
-	const fovInRadians = (fov * Math.PI) / 180;
-	const heightOfViewport = 2 * Math.tan(fovInRadians / 2) * distance;
-	const widthOfViewport = heightOfViewport * aspectRatio;
-	return {
-		width: widthOfViewport,
-		height: heightOfViewport,
-	};
 }
 
 const vertexShader = `

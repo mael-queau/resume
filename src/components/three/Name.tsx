@@ -1,50 +1,76 @@
-import { Text } from "@react-three/drei";
+import { Text, shaderMaterial } from "@react-three/drei";
 import { ThreeElements, extend, useFrame } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
 import { Mesh, ShaderMaterial, Vector3 } from "three";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import Comfortaa from "../../assets/fonts/Comfortaa-Bold.ttf";
-import { useRef } from "react";
+import { calcViewportSize } from "../../utils/viewport";
 
-extend({ Mesh, ShaderMaterial, TextGeometry });
+extend({
+	Mesh,
+	// ShaderMaterial,
+	TextGeometry,
+});
 
 type ThreeMeshProps = ThreeElements["mesh"];
 
-interface NameProps extends ThreeMeshProps {
-	text: string;
-	fontSize: number;
-	fontHeight: number;
-	mouseRadius: number;
-	mouseStrength: number;
-}
-
-function calcViewportSize(fov: number, distance: number) {
-	const width = window.innerWidth;
-	const height = window.innerHeight;
-	const aspectRatio = width / height;
-	const fovInRadians = (fov * Math.PI) / 180;
-	const heightOfViewport = 2 * Math.tan(fovInRadians / 2) * distance;
-	const widthOfViewport = heightOfViewport * aspectRatio;
-	return {
-		width: widthOfViewport,
-		height: heightOfViewport,
+export interface NameProps {
+	height: number;
+	width: number;
+	text: {
+		content: string;
+		size: number;
+		position: {
+			x: number;
+			y: number;
+			z: number;
+		};
+	};
+	mouseEffect: {
+		radius: number;
+		strength: number;
+	};
+	color: {
+		seed: number;
+		color1: string;
+		color2: string;
+	};
+	camera: {
+		fov: number;
+		position: {
+			x: number;
+			y: number;
+			z: number;
+		};
 	};
 }
 
-export default function Name(props: NameProps) {
+export default function Name(props: NameProps & ThreeMeshProps) {
 	const materialRef = useRef<ShaderMaterial>(null);
 
-	const uniforms = {
-		mousePosition: { value: new Vector3() },
-		mouseRadius: { value: props.mouseRadius * 0.75 },
-		mouseStrength: { value: props.mouseStrength },
-	};
+	// const uniforms = {
+	// 	mousePosition: { value: new Vector3() },
+	// 	mouseRadius: { value: props.mouseEffect.radius * 0.75 },
+	// 	mouseStrength: { value: props.mouseEffect.strength },
+	// };
 
-	const fov = 10;
-	const distance = 1000;
+	const uniforms = useMemo(
+		() => ({
+			mousePosition: { value: new Vector3() },
+			mouseRadius: { value: props.mouseEffect.radius * 0.75 },
+			mouseStrength: { value: props.mouseEffect.strength },
+		}),
+		[props.mouseEffect.radius, props.mouseEffect.strength],
+	);
 
 	// Create a grid of evenly spaced points using BufferGeometry
 	// First, calculate the number of points needed to fill the viewport
-	const viewportSize = calcViewportSize(fov, distance);
+	const viewportSize = calcViewportSize(
+		props.height,
+		props.width,
+		props.camera.fov,
+		props.camera.position.z,
+	);
 
 	useFrame(({ mouse }) => {
 		if (materialRef.current) {
@@ -114,14 +140,14 @@ export default function Name(props: NameProps) {
 	  `;
 
 	return (
-		<Text font={Comfortaa} fontSize={props.fontSize} position={props.position}>
+		<Text font={Comfortaa} fontSize={props.text.size} position={props.position}>
 			<shaderMaterial
 				ref={materialRef}
 				uniforms={uniforms}
 				vertexShader={vertexShader}
 				fragmentShader={fragmentShader}
 			/>
-			{props.text}
+			{props.text.content}
 		</Text>
 	);
 }
