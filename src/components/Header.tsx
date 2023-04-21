@@ -36,7 +36,7 @@ export default function Header(props: HeaderProps) {
 			}}
 			mouseEffect={{
 				radius: 45,
-				strength: 8,
+				strength: 10,
 			}}
 			noise={{
 				scale: {
@@ -48,7 +48,7 @@ export default function Header(props: HeaderProps) {
 			}}
 			points={{
 				size: {
-					min: 3,
+					min: 2,
 					max: 10,
 				},
 				margin: 10,
