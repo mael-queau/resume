@@ -1,13 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Check if there are any warnings after applying changes
-rome check . --apply
-
-# If there are no warnings, format the code
-if [ $? -eq 0 ]; then
-  rome format .
-fi
-
-# Add the formatted code to the commit
-git add .
+npx lint-staged
