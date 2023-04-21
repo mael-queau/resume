@@ -1,7 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-# Check for linting errors
-npm run lint
+# Check if there are any warnings after applying changes
+rome check . --apply
 
-# Format the code
-npm run format
+# If there are no warnings, format the code
+if [ $? -eq 0 ]; then
+  rome format .
+fi
+
+# Add the formatted code to the commit
+git add .
