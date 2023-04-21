@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Roboto";
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    transition: all 0.2s ease;
+    border-bottom: 2px solid rgb(230, 230, 230);
+    box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.05);
+    font-size: larger;
+    padding: .5em 1em;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+#nom {
+    width: 25em;
+    margin-right: auto;
+}
+
+#nom:hover {
+    transition: all 0.2s ease;
+    font-weight: bold;
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+li {
+    transition: font-weight 0.5s ease;
+    margin: 0 .5em;
+    list-style: none;
+    font-size: .9em;
+}
+
+li:hover {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    #nom, header ul {
+        width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+    }
+
+    #nom {
+        text-align: center;
+    }
+}
+
+#postuler {
+    transition: all 0.2s ease;
+    margin: 0 .5em;
+    font-weight: 400;
+    font-size: medium;
+    background-color: white;
+    color: rgb(0, 127, 255);
+    border: solid 1px rgb(0, 127, 255);
+    padding: .5em .75em;
+    border-radius: .2em;
+}
+
+#postuler:hover {
+    color:white;
+    background-color: rgb(0, 127, 255);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3em;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 3em;
+    margin: 0;
+}
+
+@media (max-width: 425px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    li {
+        font-size: .7em;
+    }
+}
+
+h5 {
+    text-align: center;
+    font-size: large;
+    margin: .5em;
+    font-weight: 200;
+    width: 45%;
+    line-break: loose;
+}
+
+#options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 80em;
+}
+
+.option {
+    font-size: 0.85em;
+    border: solid 1px rgb(230, 230, 230);
+    border-radius: .2em;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.02);
+    flex: 1 0 auto;
+    margin: 1.5em;
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+}
+
+@media (max-width: 425px) {
+    .option {
+        min-width: 15em;
+    }
+}
+
+.name {
+    font-size: 1.8em;
+    padding: .5em;
+}
+
+.content {
+    background-color: #fff;
+    border-top: solid 1px  rgb(230, 230, 230);
+    padding: .7em;
+    font-size: 2em;
+    color: rgb(175, 175, 175);
+}
+
+.price {
+    color: black;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.includes {
+    padding: 1em 0;
+    color: black;
+    font-size: .6em;
+    font-weight: 300;
+    line-height: 1.6em;
+}
+
+.option button {
+    transition: all 0.2s ease;
+    margin-top: .5em;
+    width: 100%;
+    padding: .5em;
+    color: white;
+    font-size: .7em;
+    font-weight: 300;
+    background-color: rgb(0, 127, 255);
+    border: solid 1px rgb(0, 127, 255);;
+    border-radius: .2em;
+}
+
+.option button:hover {
+    color:rgb(0, 127, 255);
+    border: solid 1px rgb(0, 127, 255);
+    background-color: white;
+}
+
+#free button {
+    background-color: white;
+    color: rgb(0, 127, 255);
+}
+
+#free button:hover {
+    color:white;
+    background-color: rgb(0, 127, 255);
+}
