@@ -1,8 +1,8 @@
-import Banner from "./Banner";
+import ParticlesBanner from "./ParticlesBanner";
 
 export default function Header() {
 	return (
-		<Banner
+		<ParticlesBanner
 			width={window.innerWidth}
 			height={window.innerHeight - 100}
 			camera={{

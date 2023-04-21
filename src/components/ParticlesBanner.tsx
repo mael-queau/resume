@@ -10,7 +10,7 @@ interface BannerProps extends ContentProps {
 	} & NameProps["camera"];
 }
 
-export default function Banner(props: BannerProps) {
+export default function ParticlesBanner(props: BannerProps) {
 	return (
 		<Canvas
 			camera={{
