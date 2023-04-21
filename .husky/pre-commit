@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Check for linting errors
+npm run lint
+
+# Format the code
+npm run format
