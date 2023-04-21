@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Pac-Man</title>
+  </head>
+  <body>
+    <main>
+      <div id="scoreboard">
+        Highscore: <span id="highscore"></span><br>
+        Total deaths: <span id="totaldeaths"></span><br>
+        Score: <span id="score"></span><br>
+        Lives: <span id="lives"></span>
+      </div>
+      <div id="game">
+        <div id="pacman">
+          <div></div>
+        </div>
+        <div id="inky">
+          <div></div>
+        </div>
+        <div id="pinky">
+          <div></div>
+        </div>
+        <div id="blinky">
+          <div></div>
+        </div>
+        <div id="clyde">
+          <div></div>
+        </div>
+      </div>
+      <button type="button" id="start" onclick="start();">Start!</button>
+      <button type="button" id="start" onclick="pause();">Pause</button>
+    </main>
+    <script>
+      const sprites = [
+        document.querySelector("#pacman"),
+        document.querySelector("#inky"),
+        document.querySelector("#pinky"),
+        document.querySelector("#blinky"),
+        document.querySelector("#clyde"),
+      ];
+    </script>
+
+    <script src="./js/game.js"></script>
+
+    <script>
+      init();
+      draw();
+      pause = false;
+
+      function pause() {
+        window.pause = !window.pause;
+      }
+
+      function start() {
+        document.querySelector("#start").style.display = "none";
+        setInterval(() => {
+          update();
+          draw();
+        }, 350);
+      }
+    </script>
+  </body>
+</html>

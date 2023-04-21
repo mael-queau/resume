@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery-3.6.0.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+      const quizz = [
+        {
+          texte: "Dans quelle ville se passe Persona 4?",
+          reponses: [
+            { texte: "Tokyo", vrai: false, choix: false },
+            { texte: "New York", vrai: false, choix: false },
+            { texte: "Inaba", vrai: true, choix: false },
+            { texte: "Akina", vrai: false, choix: false }
+          ]
+        }, {
+          texte: "Lequel de ces personnages est dans Persona 5?",
+          reponses: [
+            { texte: "Osomatsu Matsuno", vrai: false, choix: false },
+            { texte: "Masayoshi Shido", vrai: true, choix: false },
+            { texte: "Kyoko Kirigiri", vrai: false, choix: false },
+            { texte: "Ryotaro Dojima", vrai: false, choix: false }
+          ]
+        }, {
+          texte: "Où vit le protagoniste de Persona 5?",
+          reponses: [
+            { texte: "Chez Sojiro", vrai: false, choix: false },
+            { texte: "Dans son propre appartement", vrai: false, choix: false },
+            { texte: "Chez ses parents", vrai: false, choix: false },
+            { texte: "Au Café Leblanc", vrai: true, choix: false }
+          ]
+        }, {
+          texte: "Quelle est l'arcane de Ryuji Sakamoto?",
+          reponses: [
+            { texte: "Chariot", vrai: true, choix: false },
+            { texte: "Tower", vrai: false, choix: false },
+            { texte: "Sun", vrai: false, choix: false },
+            { texte: "Fool", vrai: false, choix: false }
+          ]
+        }, {
+          texte: "Quel est le nom de famille d'Igor?",
+          reponses: [
+            { texte: "Solgarovski", vrai: false, choix: false },
+            { texte: "Il n'en a pas", vrai: true, choix: false },
+            { texte: "Il en a plusieurs", vrai: false, choix: false },
+            { texte: "Yaldabaoth", vrai: false, choix: false }
+          ]
+        }
+      ];
+    </script>
+  </head>
+  <body>
+    <div id="bienvenue">
+      <h1>Bienvenue sur mon quizz Persona!</h1>
+      <span id="rules">Les règles sont simples:</span>
+      <ul>
+        <li>Chaque question a quatre réponses possibles.</li>
+        <li>Une seule réponse est valide.</li>
+        <li>Vous avez 15 secondes pour répondre à chaque question.</li>
+        <li>Vous pouvez consulter vos anciennes réponsesen survolant<br>la barre de progression en bas.</li>
+        <li><b>Bon quizz!</b></li>
+      </ul>
+      <button id="start">Démarrer le quizz</button>
+    </div>
+    <div id="quizz">
+      <div id="counter"></div>
+      <div id="countdown"></div>
+    </div>
+    <div id="resultat">
+      <h1>Vous avez eu <span id="total"></span>.</h1>
+      <button id="restart">Recommencer</button>
+    </div>
+
+    <div id="progressBarWrapper"></div>
+
+    <script type="text/javascript">
+      var timeout = false;
+      var q = 0;
+      var total = 0;
+      var countdown = 15;
+
+      $.fn.filterByData = function(prop, val) {
+        return this.filter(
+          function() { return $(this).data(prop)==val; }
+        );
+      }
+
+      $(document).ready(function () {
+        $("#start").click(function (e) {
+          e.preventDefault();
+          $("#bienvenue").slideToggle(200);
+          $("#quizz").show();
+          showQuestion(q);
+        });
+
+        $("#restart").click(function (e) {
+          e.preventDefault();
+          location.reload();
+        });
+
+        $(document).click(function (e) {
+          if (timeout) {
+            clearTimeout(timeout);
+            showQuestion(++q);
+          }
+        });
+
+        $("body").on('mouseover', ".progressBar", function (e) {
+
+          clearTimeout($(this).data("timer"));
+          $(this).data("timer", setTimeout(() => {
+            let bulle = $(this).find('.pBarHover');
+            if (bulle.css("display") != 'none') return;
+            bulle.fadeIn(500);
+
+            let parentCenter = {
+              left: $(this).offset().left + $(this).width() / 2,
+              top: $(this).offset().top + $(this).height() / 2
+            }
+            bulle.offset({
+              left: Math.max(10, Math.min(document.documentElement.clientWidth - bulle.outerWidth(true) - 10, parentCenter.left - (bulle.outerWidth(true) / 2))),
+              top: parentCenter.top - (bulle.height() + 30)
+            });
+          }, 200));
+        });
+
+        $("body").on('mouseout', ".progressBar, .pBarHover", function (e) {
+          clearTimeout($(this).data("timer"));
+          $(this).data("timer", setTimeout(() => {
+            $(this).find('.pBarHover').fadeOut(500);
+          }, 200));
+        });
+
+        $('body').on('click', '.r', function (e) {
+          if (timeout) return;
+
+          clearInterval($("#countdown").data("interval"));
+
+          let newSquare = $('<div class="progressBar"></div>').data("q", q);
+
+          if (quizz[q].reponses[$(this).data("id")].vrai) {
+            newSquare.css("background-color", "#18DC3799");
+            total++;
+            $(this).css("background-color", "#18DC3799");
+          } else {
+            let vrai;
+            for (let i = 0; i < quizz[q].reponses.length; i++) {
+              if (quizz[q].reponses[i].vrai) vrai = i;
+            }
+            newSquare.css("background-color", "#FF0F0099");
+            $(this).css("background-color", "#FF0F0099");
+            $(this).siblings().filterByData("id", vrai).css("background-color", "#18DC3799");
+          }
+
+          $("#current").clone().removeAttr("id").removeClass("q").addClass("pBarHover").appendTo(newSquare);
+          newSquare.appendTo("#progressBarWrapper");
+          newSquare.css({
+            width: 0
+          });
+          newSquare.animate({
+            width: `${100 / quizz.length}%`
+          });
+          timeout = setTimeout(function () {
+            showQuestion(++q);
+            timeout = false;
+          }, 3000);
+          e.stopPropagation();
+        });
+      });
+
+      function tick() {
+        $("#countdown").html(--countdown);
+        if (countdown <= 10) {
+          $("#countdown").css({ "color": "rgb(255, 201, 34)" });
+        }
+        if (countdown <= 5) {
+          $("#countdown").css({ "color": "red" });
+        }
+        if (countdown == 0) {
+          clearInterval($("#countdown").data("interval"));
+          let newSquare = $('<div class="progressBar"></div>').data("q", q);
+          newSquare.css("background-color", "#FF0F0099");
+          $("#current > .r").css("background-color", "#FF0F0099");
+          $("#current").clone().removeAttr("id").removeClass("q").addClass("pBarHover").appendTo(newSquare);
+          newSquare.appendTo("#progressBarWrapper");
+          newSquare.css({
+            width: 0
+          });
+          newSquare.animate({
+            width: `${100 / quizz.length}%`
+          });
+          timeout = setTimeout(function () {
+            $("#countdown").css({ "color": "white" });
+            showQuestion(++q);
+            timeout = false;
+          }, 3000);
+        }
+      }
+
+      function showQuestion(n) {
+        if (n < quizz.length) {
+          countdown = 15;
+          $("#countdown").html(countdown);
+          $("#countdown").data("interval", setInterval(tick, 1000));
+          $("#current").attr("id", "prev");
+          $("#counter").html(n + 1);
+          let question = quizz[n];
+          let section = $(`<section class="q" id="current"></section>`);
+          $(`<h2>${question.texte}</h2>`).appendTo(section);
+          for (let i = 0; i < question.reponses.length; i++) {
+            $(`<div class="r">${question.reponses[i].texte}</div>`).data("id", i).appendTo(section);
+          }
+          section.appendTo($(`#quizz`)).css("opacity", 0).animate({
+            opacity: 1
+          }, 400);
+          $("#prev").slideToggle(400, function () {
+            $(this).remove();
+          });
+          timeout = false;
+        } else {
+          $("#quizz").hide(400);
+          $("#resultat").show();
+          let pluriel = (total == 1) ? '' : 's';
+          $("#total").text(`${total} réponse${pluriel} correcte${pluriel}`);
+        }
+
+        if ($(`#q${n}`).length) {
+          $("#counter").html(n);
+          $(`#q${n - 1}`).slideToggle(400);
+          // $(`#q${n - 1}`).animate({
+          //   left: "-=100vh",
+          //   top: "-=3em",
+          //   transform: "rotate(-90deg)"
+          // }, 700, function () {
+          //   $(this).hide();
+          // });
+          $(`#q${n}`).show().css("opacity", 0).animate({
+            opacity: 1
+          }, 400);
+          timeout = false;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+@import url('http://fonts.cdnfonts.com/css/google-sans');
+
+/*
+font-family: 'Product Sans', sans-serif;
+font-family: 'Product Sans Thin', sans-serif;
+font-family: 'Product Sans Light', sans-serif;
+font-family: 'Product Sans Medium', sans-serif;
+font-family: 'Product Sans Black', sans-serif;
+*/
+
+body {
+  padding: 1em;
+  box-sizing: border-box;
+  max-width: 1150px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Product Sans', sans-serif;
+  color: rgb(50 50 50);
+  font-size: .9rem;
+}
+
+#main_layout {
+  display: flex;
+  gap: 2em;
+}
+
+.col {
+  flex: 50% 1 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.col > header {
+  text-align: center;
+}
+
+.col > header > h1 {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.col > header > p {
+  color: rgb(120 120 120);
+}
+
+.col > main {
+  width: fit-content;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.tile {
+  height: 15em;
+  padding: 2em 1em 1em 1em;
+  border: solid 1px white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile > h1 {
+  font-size: 1.3rem;
+  margin: .5em 0;
+  text-align: center;
+}
+
+.tile > p {
+  text-align: center;
+  font-size: small;
+  margin: 0;
+}
+
+#split {
+  background-color: rgb(225 242 255);
+  color: rgb(0 146 249);
+}
+
+#pricing_table {
+  background-color: rgb(225 242 255);
+  color: rgb(0 165 250);
+}
+
+#sidebar {
+  background-color: rgb(223 247 250);
+  color: rgb(0 188 216);
+}
+
+#sticky {
+  background-color: rgb(237 231 246);
+  color: rgb(103 44 189);
+}
+
+#fluid {
+  background-color: rgb(237 231 246);
+  color: rgb(159 6 180);
+}
+
+#hero {
+  background-color: rgb(251 233 231);
+  color: rgb(255 87 34);
+}
+
+#holy {
+  background-color: rgb(255 243 223);
+  color: rgb(255 154 0);
+}
+
+#simple_grids {
+  background-color: rgb(255 243 223);
+  color: rgb(255 195 0);
+}
+
+#vertical_center {
+  background-color: rgb(255 235 238);
+  color: rgb(253 61 7);
+}
+
+#equal_height {
+  background-color: rgb(223 242 241);
+  color: rgb(0 152 136);
+}
+
+#collection_grid {
+  background-color: rgb(253 228 236);
+  color: rgb(239 7 95);
+}
+
+#feature_list {
+  background-color: rgb(232 245 233);
+  color: rgb(66 177 69);
+}
+
+@media screen and (max-width: 1024px) {
+  #main_layout {
+    flex-direction: column;
+  }
+
+  .col > main {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .col > main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  html {
+    font-size: .8em;
+  }
+
+  .col > main {
+    display: block;
+  }
+
+  .tile {
+    display: grid;
+    grid-template-areas: "img h1" "img p";
+    grid-template-rows: 2em 1fr;
+    padding: 1em;
+    margin: 0;
+    gap: .5em;
+    height: auto;
+  }
+
+  .tile img {
+    grid-area: img;
+  }
+
+  .tile h1 {
+    grid-area: h1;
+  }
+
+  .tile p {
+    grid-area: p;
+  }
+}
