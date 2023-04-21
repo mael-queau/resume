@@ -1,0 +1,23 @@
+name: Rome CI
+
+on:
+  push:
+    branches:
+    - main
+    - chore/rome_integration # This is temporary
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.node-version'
+      - name: Install packages
+        run: npm install
+      - name: Run Rome
+        run: npm run ci

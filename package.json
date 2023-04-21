@@ -2,12 +2,16 @@
 	"name": "digital_resume",
 	"private": true,
 	"version": "0.0.0",
+	"engines": {
+		"node": "^18"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"lint": "rome check .",
-		"format": "rome format . --write"
+		"format": "rome format . --write",
+		"ci": "rome ci ."
 	},
 	"dependencies": {
 		"@react-three/drei": "^9.65.4",
