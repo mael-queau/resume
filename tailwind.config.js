@@ -7,8 +7,8 @@ export default {
 		extend: {},
 		fontFamily: {
 			sans: ["Comfortaa", ...defaultTheme.fontFamily.sans],
-			display: ["Saira", ...defaultTheme.fontFamily.sans]
-		}
+			display: ["Saira", ...defaultTheme.fontFamily.sans],
+		},
 	},
 	plugins: [],
 };
