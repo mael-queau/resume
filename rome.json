@@ -8,10 +8,10 @@
 		"rules": {
 			"recommended": true
 		},
-		"ignore": ["./public/old/**/*"]
+		"ignore": ["./public/old/**/*", "./dist"]
 	},
 	"formatter": {
 		"enabled": true,
-		"ignore": ["./public/old/**/*"]
+		"ignore": ["./public/old/**/*", "./dist"]
 	}
 }
