@@ -4,7 +4,7 @@ export default function DevelopmentWarning() {
 			<p className="text-sm">
 				<strong>Warning:</strong> This site is still under development. <br />
 				The previous version can be seen{" "}
-				<a href="/old" className="underline">
+				<a href="/old/index.html" className="underline">
 					here
 				</a>
 			</p>
