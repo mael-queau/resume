@@ -13,6 +13,9 @@
 		"format": "rome format . --write",
 		"ci": "rome ci ."
 	},
+	"lint-staged": {
+		"**/*.{ts,json,tsx}": ["npm run format", "npm run lint"]
+	},
 	"dependencies": {
 		"@react-three/drei": "^9.65.4",
 		"@react-three/fiber": "^8.12.1",
@@ -30,6 +33,7 @@
 		"@vitejs/plugin-react-swc": "^3.0.0",
 		"autoprefixer": "^10.4.14",
 		"husky": "^8.0.3",
+		"lint-staged": "^13.2.1",
 		"postcss": "^8.4.23",
 		"rome": "^12.0.0",
 		"tailwindcss": "^3.3.1",
