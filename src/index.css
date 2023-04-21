@@ -2,13 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* import src/assets/fonts/Comfortaa-VariableFont_wght.ttf as a font to use */
 @font-face {
   font-family: 'Comfortaa';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
   src: url('./assets/fonts/Comfortaa-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Saira';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/Saira-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Saira';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/Saira-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 body {
