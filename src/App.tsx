@@ -1,19 +1,9 @@
-import React from "react";
-
 import { Stats } from "@react-three/drei";
 import DevelopmentWarning from "./components/DevelopmentWarning";
 import Header from "./components/Header";
 import Section from "./components/Section";
-import { IconBrandGithub } from "@tabler/icons-react";
 
 function App() {
-	// const imageSrc = "src/assets/images/mael-queau.jpg";
-	// const imageAlt = "A picture of Maël Quéau";
-	// const title = "About Me";
-	// const subtitle = "";
-	// const paragraph =
-	// 	"Hello, I'm Maël Quéau, a French student in computer science. I'm currently studying at Epitech. I'm passionate about web development, and I'm currently learning Machine Learning and Artificial Intelligence.";
-
 	return (
 		<>
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
@@ -27,10 +17,24 @@ function App() {
 					alt={"A picture of Maël Quéau"}
 				/>
 				<Section.Body>
-					<p>
-						Hello, I'm Maël Quéau, a French student in computer science. I'm
-						currently studying at Epitech. I'm passionate about development, and
-						I'm currently learning Machine Learning and Artificial Intelligence!
+					<p className="mb-4">
+						Born in 1999 in France, I am a student at{" "}
+						<img
+							src="https://newsroom.ionis-group.com/wp-content/uploads/2021/10/EPITECH-TECHNOLOGY-BLANC-2021.png"
+							alt="The Epitech logo"
+							className="inline-block h-8 align-middle"
+						/>{" "}
+						in Nantes, learning{" "}
+						<span className="font-bold">Artificial Intelligence</span>.
+					</p>
+					<p className="mb-4">
+						I like to learn new things, especially if it can help me make my
+						ideas come to life.
+					</p>
+					<p className="mb-4">
+						I am passionate about <span className="font-bold">development</span>
+						, <span className="font-bold">music</span>, and{" "}
+						<span className="font-bold">blablabla</span>.
 					</p>
 				</Section.Body>
 			</Section>

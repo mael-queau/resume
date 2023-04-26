@@ -46,6 +46,7 @@ export default function Section(props: SectionProps) {
 				<div className="flex flex-col items-center justify-center h-full flex-1">
 					{title}
 					{subtitle}
+					<hr className="w-1/2 my-4 border-gray-500" />
 					{body}
 				</div>
 			</main>
