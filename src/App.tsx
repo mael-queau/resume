@@ -13,7 +13,7 @@ function App() {
 				<Section.Title title={"About Me"} />
 				<Section.Subtitle subtitle={"Who am I?"} />
 				<Section.Image
-					src={"src/assets/images/mael-queau.jpg"}
+					src={"/images/mael-queau.jpg"}
 					alt={"A picture of Maël Quéau"}
 				/>
 				<Section.Body>
