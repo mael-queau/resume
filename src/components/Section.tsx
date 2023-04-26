@@ -32,7 +32,7 @@ export default function Section(props: SectionProps) {
 	}, [props.children]);
 
 	return (
-		<section className="flex flex-col items-center justify-center w-full h-full py-16">
+		<section className="flex flex-col items-center justify-center w-full h-full">
 			<main
 				className={`flex flex-col items-center justify-center w-full h-screen max-w-7xl px-8 mx-auto {
 					${props.reverse ? "md:flex-row-reverse" : "md:flex-row"}
