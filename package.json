@@ -15,7 +15,7 @@
 		"ci": "rome ci ."
 	},
 	"lint-staged": {
-		"**/*.{ts,json,tsx}": ["npm run format", "npm run lint"]
+		"**/*.{ts,json,tsx}": ["rome check", "rome format --write"]
 	},
 	"dependencies": {
 		"@react-three/drei": "^9.65.4",
