@@ -1,7 +1,8 @@
 {
 	"name": "digital_resume",
 	"private": true,
-	"version": "0.1.0",
+	"version": "0.2.0",
+	"type": "module",
 	"engines": {
 		"node": "^18"
 	},
@@ -14,7 +15,7 @@
 		"ci": "rome ci ."
 	},
 	"lint-staged": {
-		"**/*.{ts,json,tsx}": ["npm run format", "npm run lint"]
+		"**/*.{ts,json,tsx}": ["rome check", "rome format --write"]
 	},
 	"dependencies": {
 		"@react-three/drei": "^9.65.4",

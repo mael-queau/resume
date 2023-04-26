@@ -49,11 +49,11 @@ export default function Header(props: HeaderProps) {
 			points={{
 				size: {
 					min: 2,
-					max: 10,
+					max: 7,
 				},
 				margin: 10,
 				oddRowsOffset: 0.5,
-				spacing: 1,
+				spacing: 1.5,
 			}}
 		/>
 	);
