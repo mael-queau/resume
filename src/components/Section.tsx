@@ -33,7 +33,7 @@ export default function Section(props: SectionProps) {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center w-full min-h-screen h-fit odd:bg-slate-950 even:bg-slate-900"
+			className="flex flex-col items-center justify-center w-full min-h-screen h-fit even:bg-slate-900"
 			{...props}
 		>
 			<main
