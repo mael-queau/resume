@@ -92,7 +92,6 @@ function App() {
 							<Skills.Item name="Next.js" icon={<NextjsOriginalIcon />} />
 							<Skills.Item name="Vue.js" icon={<VuejsOriginalIcon />} />
 							<Skills.Item name="React" icon={<ReactOriginalIcon />} />
-							<Skills.Item name="Express.js" icon={<ExpressOriginalIcon />} />
 						</Skills.Group>
 						<Skills.Group name="Tools">
 							<Skills.Item
