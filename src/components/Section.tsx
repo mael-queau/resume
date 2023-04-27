@@ -33,11 +33,11 @@ export default function Section(props: SectionProps) {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center w-full min-h-full"
+			className="flex flex-col items-center justify-center w-full min-h-screen h-fit even:bg-slate-900"
 			{...props}
 		>
 			<main
-				className={`flex flex-col items-center justify-center w-full h-screen max-w-7xl px-8 mx-auto {
+				className={`flex flex-col gap-5 items-center justify-center w-full h-full max-w-7xl px-8 mx-auto {
 					${props.reverse ? "md:flex-row-reverse" : "md:flex-row"}
 				}`}
 			>

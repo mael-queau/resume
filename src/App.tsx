@@ -3,7 +3,6 @@ import {
 	Css3OriginalIcon,
 	DenojsOriginalIcon,
 	DockerOriginalIcon,
-	ExpressOriginalIcon,
 	GitOriginalIcon,
 	GithubOriginalIcon,
 	Html5OriginalIcon,
@@ -29,7 +28,7 @@ import Skills from "./components/Skills";
 
 function App() {
 	return (
-		<>
+		<div className="w-full bg-slate-950 text-white">
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
 			<Header width={window.innerWidth} height={window.innerHeight} />
@@ -92,7 +91,6 @@ function App() {
 							<Skills.Item name="Next.js" icon={<NextjsOriginalIcon />} />
 							<Skills.Item name="Vue.js" icon={<VuejsOriginalIcon />} />
 							<Skills.Item name="React" icon={<ReactOriginalIcon />} />
-							<Skills.Item name="Express.js" icon={<ExpressOriginalIcon />} />
 						</Skills.Group>
 						<Skills.Group name="Tools">
 							<Skills.Item
@@ -108,7 +106,7 @@ function App() {
 					</Skills>
 				</Section.Body>
 			</Section>
-		</>
+		</div>
 	);
 }
 

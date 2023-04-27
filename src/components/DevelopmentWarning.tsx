@@ -1,6 +1,6 @@
 export default function DevelopmentWarning() {
 	return (
-		<div className="fixed bottom-0 left-0 w-full bg-red-500 text-white text-center py-2">
+		<div className="fixed bottom-0 left-0 w-full bg-red-500 text-white text-center py-2 z-10">
 			<p className="text-sm">
 				<strong>Warning:</strong> This site is still under development. <br />
 				The previous version can be seen{" "}
