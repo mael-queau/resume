@@ -1,7 +1,31 @@
 import { Stats } from "@react-three/drei";
+import {
+	Css3OriginalIcon,
+	DenojsOriginalIcon,
+	DockerOriginalIcon,
+	ExpressOriginalIcon,
+	GitOriginalIcon,
+	GithubOriginalIcon,
+	Html5OriginalIcon,
+	JavascriptOriginalIcon,
+	MongodbOriginalIcon,
+	NextjsOriginalIcon,
+	NodejsOriginalIcon,
+	PhpOriginalIcon,
+	PostgresqlOriginalIcon,
+	PythonOriginalIcon,
+	ReactOriginalIcon,
+	TailwindcssPlainIcon,
+	TensorflowOriginalIcon,
+	ThreejsOriginalIcon,
+	TypescriptOriginalIcon,
+	VscodeOriginalIcon,
+	VuejsOriginalIcon,
+} from "react-devicons";
 import DevelopmentWarning from "./components/DevelopmentWarning";
 import Header from "./components/Header";
 import Section from "./components/Section";
+import Skills from "./components/Skills";
 
 function App() {
 	return (
@@ -33,15 +57,55 @@ function App() {
 					</p>
 					<p className="mb-4">
 						I am passionate about <span className="font-bold">development</span>
-						, <span className="font-bold">music</span>, and{" "}
-						<span className="font-bold">blablabla</span>.
+						, <span className="font-bold">music</span>, and especially{" "}
+						<span className="font-bold">challenging myself</span>.
 					</p>
 				</Section.Body>
 			</Section>
 			<Section>
 				<Section.Title title="My Skills" />
 				<Section.Body>
-					<p>Coming soon...</p>
+					<Skills>
+						<Skills.Group name="Languages">
+							<Skills.Item
+								name="JavaScript"
+								icon={<JavascriptOriginalIcon />}
+							/>
+							<Skills.Item
+								name="TypeScript"
+								icon={<TypescriptOriginalIcon />}
+							/>
+							<Skills.Item name="Python" icon={<PythonOriginalIcon />} />
+							<Skills.Item name="HTML" icon={<Html5OriginalIcon />} />
+							<Skills.Item name="CSS" icon={<Css3OriginalIcon />} />
+							<Skills.Item name="PHP" icon={<PhpOriginalIcon />} />
+						</Skills.Group>
+						<Skills.Group name="Frameworks">
+							<Skills.Item name="Node.js" icon={<NodejsOriginalIcon />} />
+							<Skills.Item name="Deno" icon={<DenojsOriginalIcon />} />
+							<Skills.Item
+								name="TensorFlow"
+								icon={<TensorflowOriginalIcon />}
+							/>
+							<Skills.Item name="Three.js" icon={<ThreejsOriginalIcon />} />
+							<Skills.Item name="TailwindCSS" icon={<TailwindcssPlainIcon />} />
+							<Skills.Item name="Next.js" icon={<NextjsOriginalIcon />} />
+							<Skills.Item name="Vue.js" icon={<VuejsOriginalIcon />} />
+							<Skills.Item name="React" icon={<ReactOriginalIcon />} />
+							<Skills.Item name="Express.js" icon={<ExpressOriginalIcon />} />
+						</Skills.Group>
+						<Skills.Group name="Tools">
+							<Skills.Item
+								name="PostgreSQL"
+								icon={<PostgresqlOriginalIcon />}
+							/>
+							<Skills.Item name="MongoDB" icon={<MongodbOriginalIcon />} />
+							<Skills.Item name="Git" icon={<GitOriginalIcon />} />
+							<Skills.Item name="GitHub" icon={<GithubOriginalIcon />} />
+							<Skills.Item name="Docker" icon={<DockerOriginalIcon />} />
+							<Skills.Item name="VSCode" icon={<VscodeOriginalIcon />} />
+						</Skills.Group>
+					</Skills>
 				</Section.Body>
 			</Section>
 		</>
