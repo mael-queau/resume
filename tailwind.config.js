@@ -6,6 +6,7 @@ export default {
 	theme: {
 		extend: {},
 		fontFamily: {
+			...defaultTheme.fontFamily,
 			sans: ["Comfortaa", ...defaultTheme.fontFamily.sans],
 			display: ["Saira", ...defaultTheme.fontFamily.sans],
 		},
