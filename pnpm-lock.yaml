@@ -22,6 +22,9 @@ dependencies:
   three:
     specifier: ^0.151.3
     version: 0.151.3
+  use-hovering:
+    specifier: ^0.4.4
+    version: 0.4.4(react@18.2.0)
 
 devDependencies:
   '@commitlint/cli':
@@ -3107,6 +3110,14 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /use-hovering@0.4.4(react@18.2.0):
+    resolution: {integrity: sha512-T7p86W21z+0HRqNCnoMQqIdGujF3zrk5IEJBlUv4ysk8LNt34uvvICOeVBr8n9yEHSXJkNBXh2Vy9XsT/f0RkQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
