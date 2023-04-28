@@ -32,7 +32,7 @@ function App() {
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
 			<Header width={window.innerWidth} height={window.innerHeight} />
-			<Section>
+			<Section id="about">
 				<Section.Title title="About Me" />
 				<Section.Subtitle subtitle={"Who am I?"} />
 				<Section.Image
@@ -61,7 +61,7 @@ function App() {
 					</p>
 				</Section.Body>
 			</Section>
-			<Section>
+			<Section id="skills">
 				<Section.Title title="My Skills" />
 				<Section.Body>
 					<Skills>
