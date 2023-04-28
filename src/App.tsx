@@ -59,8 +59,8 @@ function App() {
 					<p className="mb-4">
 						I am passionate about{" "}
 						<span className="font-extrabold">development</span>,{" "}
-						<span className="font-extrabold">music</span>, and especially{" "}
-						<span className="font-extrabold">challenging myself</span>.
+						<span className="font-extrabold">music</span>, and{" "}
+						<span className="font-extrabold">challenging myself</span>!
 					</p>
 				</Section.Body>
 			</Section>
