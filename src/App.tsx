@@ -48,16 +48,17 @@ function App() {
 							className="inline-block h-8 align-middle"
 						/>{" "}
 						in Nantes, learning{" "}
-						<span className="font-bold">Artificial Intelligence</span>.
+						<span className="font-extrabold">Artificial Intelligence</span>.
 					</p>
 					<p className="mb-4">
 						I like to learn new things, especially if it can help me make my
 						ideas come to life.
 					</p>
 					<p className="mb-4">
-						I am passionate about <span className="font-bold">development</span>
-						, <span className="font-bold">music</span>, and especially{" "}
-						<span className="font-bold">challenging myself</span>.
+						I am passionate about{" "}
+						<span className="font-extrabold">development</span>,{" "}
+						<span className="font-extrabold">music</span>, and especially{" "}
+						<span className="font-extrabold">challenging myself</span>.
 					</p>
 				</Section.Body>
 			</Section>
