@@ -7,6 +7,7 @@ import {
 	GithubOriginalIcon,
 	Html5OriginalIcon,
 	JavascriptOriginalIcon,
+	LinkedinPlainIcon,
 	MongodbOriginalIcon,
 	NextjsOriginalIcon,
 	NodejsOriginalIcon,
@@ -17,6 +18,7 @@ import {
 	TailwindcssPlainIcon,
 	TensorflowOriginalIcon,
 	ThreejsOriginalIcon,
+	TwitterOriginalIcon,
 	TypescriptOriginalIcon,
 	VscodeOriginalIcon,
 	VuejsOriginalIcon,
@@ -32,8 +34,8 @@ function App() {
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
 			<Header width={window.innerWidth} height={window.innerHeight} />
-			<Section>
-				<Section.Title title={"About Me"} />
+			<Section id="about">
+				<Section.Title title="About Me" />
 				<Section.Subtitle subtitle={"Who am I?"} />
 				<Section.Image
 					src={"/images/mael-queau.jpg"}
@@ -48,20 +50,21 @@ function App() {
 							className="inline-block h-8 align-middle"
 						/>{" "}
 						in Nantes, learning{" "}
-						<span className="font-bold">Artificial Intelligence</span>.
+						<span className="font-extrabold">Artificial Intelligence</span>.
 					</p>
 					<p className="mb-4">
 						I like to learn new things, especially if it can help me make my
 						ideas come to life.
 					</p>
 					<p className="mb-4">
-						I am passionate about <span className="font-bold">development</span>
-						, <span className="font-bold">music</span>, and especially{" "}
-						<span className="font-bold">challenging myself</span>.
+						I am passionate about{" "}
+						<span className="font-extrabold">development</span>,{" "}
+						<span className="font-extrabold">music</span>, and{" "}
+						<span className="font-extrabold">challenging myself</span>!
 					</p>
 				</Section.Body>
 			</Section>
-			<Section>
+			<Section id="skills">
 				<Section.Title title="My Skills" />
 				<Section.Body>
 					<Skills>
@@ -104,6 +107,57 @@ function App() {
 							<Skills.Item name="VSCode" icon={<VscodeOriginalIcon />} />
 						</Skills.Group>
 					</Skills>
+				</Section.Body>
+			</Section>
+			<Section id="contact">
+				<Section.Title title="Contact" />
+				<Section.Body>
+					<p className="mb-4">
+						You can contact me by email at{" "}
+						<a
+							href="mailto:mael.queau99@gmail.com"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							mael.queau99@gmail.com
+						</a>
+					</p>
+					<p className="mb-4">
+						You can also find me on{" "}
+						<a
+							href="
+							https://www.linkedin.com/in/mael-queau/"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<LinkedinPlainIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							LinkedIn
+						</a>
+						,{" "}
+						<a
+							href="https://www.github.com/mael-queau"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<GithubOriginalIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							GitHub
+						</a>{" "}
+						and{" "}
+						<a
+							href="https://www.twitter.com/mael_queau"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<TwitterOriginalIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							Twitter
+						</a>
+						!
+					</p>
 				</Section.Body>
 			</Section>
 		</div>

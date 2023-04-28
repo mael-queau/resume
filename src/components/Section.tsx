@@ -33,7 +33,7 @@ export default function Section(props: SectionProps) {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center w-full min-h-screen h-fit even:bg-slate-900"
+			className="flex flex-col items-center justify-center w-full min-h-screen h-fit py-10 even:bg-slate-900"
 			{...props}
 		>
 			<main
@@ -42,11 +42,11 @@ export default function Section(props: SectionProps) {
 				}`}
 			>
 				{image && (
-					<div className="flex flex-col items-center justify-center h-full flex-1">
+					<div className="flex flex-col items-center justify-center w-full h-full flex-1">
 						{image}
 					</div>
 				)}
-				<div className="flex flex-col items-center justify-center h-full flex-1">
+				<div className="flex flex-col items-center justify-center w-full h-full flex-1">
 					{title}
 					{subtitle}
 					<hr className="w-1/2 my-4 border-gray-500" />

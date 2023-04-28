@@ -1,11 +1,16 @@
-export interface SectionTitleProps {
+import React from "react";
+
+export interface SectionTitleProps extends React.ComponentPropsWithRef<"h2"> {
 	title: string;
 }
 
 export default function SectionTitle(props: SectionTitleProps) {
 	return (
-		<h2 className="text-4xl font-display font-bold text-center text-white">
+		<h1
+			className="text-4xl font-display font-bold text-center text-white"
+			{...props}
+		>
 			{props.title}
-		</h2>
+		</h1>
 	);
 }
