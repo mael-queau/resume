@@ -7,6 +7,7 @@ import {
 	GithubOriginalIcon,
 	Html5OriginalIcon,
 	JavascriptOriginalIcon,
+	LinkedinPlainIcon,
 	MongodbOriginalIcon,
 	NextjsOriginalIcon,
 	NodejsOriginalIcon,
@@ -17,6 +18,7 @@ import {
 	TailwindcssPlainIcon,
 	TensorflowOriginalIcon,
 	ThreejsOriginalIcon,
+	TwitterOriginalIcon,
 	TypescriptOriginalIcon,
 	VscodeOriginalIcon,
 	VuejsOriginalIcon,
@@ -105,6 +107,57 @@ function App() {
 							<Skills.Item name="VSCode" icon={<VscodeOriginalIcon />} />
 						</Skills.Group>
 					</Skills>
+				</Section.Body>
+			</Section>
+			<Section id="contact">
+				<Section.Title title="Contact" />
+				<Section.Body>
+					<p className="mb-4">
+						You can contact me by email at{" "}
+						<a
+							href="mailto:mael.queau99@gmail.com"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							mael.queau99@gmail.com
+						</a>
+					</p>
+					<p className="mb-4">
+						You can also find me on{" "}
+						<a
+							href="
+							https://www.linkedin.com/in/mael-queau/"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<LinkedinPlainIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							LinkedIn
+						</a>
+						,{" "}
+						<a
+							href="https://www.github.com/mael-queau"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<GithubOriginalIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							GitHub
+						</a>{" "}
+						and{" "}
+						<a
+							href="https://www.twitter.com/mael_queau"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<TwitterOriginalIcon
+								className="inline-block h-6 align-middle"
+								color="#3b82f6"
+							/>{" "}
+							Twitter
+						</a>
+						!
+					</p>
 				</Section.Body>
 			</Section>
 		</div>
