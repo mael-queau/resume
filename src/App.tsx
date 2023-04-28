@@ -33,7 +33,7 @@ function App() {
 			{process.env.NODE_ENV === "development" && <Stats />}
 			<Header width={window.innerWidth} height={window.innerHeight} />
 			<Section>
-				<Section.Title title={"About Me"} />
+				<Section.Title title="About Me" />
 				<Section.Subtitle subtitle={"Who am I?"} />
 				<Section.Image
 					src={"/images/mael-queau.jpg"}
