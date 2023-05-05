@@ -14,7 +14,7 @@ export interface SectionProps extends React.ComponentPropsWithRef<"section"> {
 	>[];
 }
 
-export default function Section(props: SectionProps) {
+function Section(props: SectionProps, ref?: React.ForwardedRef<HTMLElement>) {
 	const { title, subtitle, image, body } = useMemo(() => {
 		const title = props.children.find((child) => child.type === SectionTitle);
 		const subtitle = props.children.find(
@@ -33,7 +33,8 @@ export default function Section(props: SectionProps) {
 
 	return (
 		<section
-			className="flex flex-col items-center justify-center w-full min-h-screen h-fit py-10 even:bg-slate-900"
+			ref={ref}
+			className="flex flex-col items-center justify-center w-full min-h-screen h-fit py-10 pt-20 even:bg-slate-900"
 			{...props}
 		>
 			<main
@@ -61,3 +62,7 @@ Section.Title = SectionTitle;
 Section.Subtitle = SectionSubtitle;
 Section.Image = SectionImage;
 Section.Body = SectionBody;
+
+export const SectionWithRef = React.forwardRef(Section);
+
+export default Section;

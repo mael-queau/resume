@@ -25,16 +25,48 @@ import {
 } from "react-devicons";
 import DevelopmentWarning from "./components/DevelopmentWarning";
 import Header from "./components/Header";
-import Section from "./components/Section";
+import Section, { SectionWithRef } from "./components/Section";
 import Skills from "./components/Skills";
+import Navbar from "./components/Navbar";
+import { useRef } from "react";
 
 function App() {
+	const aboutRef = useRef<HTMLDivElement>(null);
+	const skillsRef = useRef<HTMLDivElement>(null);
+	const contactRef = useRef<HTMLDivElement>(null);
+
+	function scrollToSection(
+		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		ref: React.RefObject<HTMLDivElement>,
+	) {
+		ref.current?.scrollIntoView({ behavior: "smooth" });
+	}
+
 	return (
 		<div className="w-full bg-slate-950 text-white">
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
+			<Navbar>
+				<Navbar.Item onClick={(e) => scrollToSection(e, aboutRef)}>
+					About
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item onClick={(e) => scrollToSection(e, skillsRef)}>
+					Skills
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item onClick={(e) => scrollToSection(e, contactRef)}>
+					Contact
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item
+					onClick={() => window.open("/cv_mael_queau.pdf", "_blank")}
+				>
+					<span className="underline">Download my resume</span>
+				</Navbar.Item>
+			</Navbar>
 			<Header width={window.innerWidth} height={window.innerHeight} />
-			<Section id="about">
+			<SectionWithRef id="about" ref={aboutRef}>
 				<Section.Title title="About Me" />
 				<Section.Subtitle subtitle={"Who am I?"} />
 				<Section.Image
@@ -63,8 +95,8 @@ function App() {
 						<span className="font-extrabold">challenging myself</span>!
 					</p>
 				</Section.Body>
-			</Section>
-			<Section id="skills">
+			</SectionWithRef>
+			<SectionWithRef id="skills" ref={skillsRef}>
 				<Section.Title title="My Skills" />
 				<Section.Body>
 					<Skills>
@@ -108,8 +140,8 @@ function App() {
 						</Skills.Group>
 					</Skills>
 				</Section.Body>
-			</Section>
-			<Section id="contact">
+			</SectionWithRef>
+			<SectionWithRef id="contact" ref={contactRef}>
 				<Section.Title title="Contact" />
 				<Section.Body>
 					<p className="mb-4">
@@ -159,7 +191,7 @@ function App() {
 						!
 					</p>
 				</Section.Body>
-			</Section>
+			</SectionWithRef>
 		</div>
 	);
 }
