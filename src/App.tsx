@@ -27,6 +27,7 @@ import DevelopmentWarning from "./components/DevelopmentWarning";
 import Header from "./components/Header";
 import Section, { SectionWithRef } from "./components/Section";
 import Skills from "./components/Skills";
+import Navbar from "./components/Navbar";
 import { useRef } from "react";
 
 function App() {
@@ -34,10 +35,36 @@ function App() {
 	const skillsRef = useRef<HTMLDivElement>(null);
 	const contactRef = useRef<HTMLDivElement>(null);
 
+	function scrollToSection(
+		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		ref: React.RefObject<HTMLDivElement>,
+	) {
+		ref.current?.scrollIntoView({ behavior: "smooth" });
+	}
+
 	return (
 		<div className="w-full bg-slate-950 text-white">
 			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
+			<Navbar>
+				<Navbar.Item onClick={(e) => scrollToSection(e, aboutRef)}>
+					About
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item onClick={(e) => scrollToSection(e, skillsRef)}>
+					Skills
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item onClick={(e) => scrollToSection(e, contactRef)}>
+					Contact
+				</Navbar.Item>
+				<Navbar.Separator />
+				<Navbar.Item
+					onClick={() => window.open("/cv_mael_queau.pdf", "_blank")}
+				>
+					<span className="underline">Download my resume</span>
+				</Navbar.Item>
+			</Navbar>
 			<Header width={window.innerWidth} height={window.innerHeight} />
 			<SectionWithRef id="about" ref={aboutRef}>
 				<Section.Title title="About Me" />
