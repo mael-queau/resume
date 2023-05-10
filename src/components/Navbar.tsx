@@ -21,7 +21,7 @@ export default function Navbar(props: NavbarProps) {
 	return (
 		<nav className="fixed top-0 left-0 w-full h-16 bg-slate-950 bg-opacity-75 text-white z-50">
 			<div className="flex items-center justify-between h-full px-4">
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
 					<img src="/images/logo.png" alt="Maël Quéau" className="h-8" />
 					<button
 						onClick={(e) => {
@@ -32,21 +32,25 @@ export default function Navbar(props: NavbarProps) {
 					>
 						Maël Quéau
 					</button>
+					<div className="md:hidden">
+						<button
+							className="p-2 rounded-md hover:bg-slate-900"
+							onClick={() => setIsMenuOpen(!isMenuOpen)}
+						>
+							<IconMenu size={24} />
+						</button>
+					</div>
 				</div>
 				<div className="hidden md:flex items-center space-x-4">
 					{props.children}
 				</div>
-				<div className="md:hidden">
-					<button
-						className="p-2 rounded-md hover:bg-slate-900"
-						onClick={() => setIsMenuOpen(!isMenuOpen)}
-					>
-						<IconMenu size={24} />
-					</button>
-				</div>
 			</div>
 			<div
-				className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-slate-900`}
+				className={`${
+					isMenuOpen ? "opacity-100" : "opacity-0"
+				} flex md:hidden flex-col items-center justify-start w-full h-screen p-6 bg-slate-900 bg-opacity-75 text-white z-50 transition-opacity`}
+				onClick={() => setIsMenuOpen(false)}
+				onKeyDown={() => setIsMenuOpen(false)}
 			>
 				{props.children}
 			</div>
