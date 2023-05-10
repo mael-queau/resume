@@ -94,6 +94,20 @@ function App() {
 						<span className="font-extrabold">music</span>, and{" "}
 						<span className="font-extrabold">challenging myself</span>!
 					</p>
+					<p className="mb-4 text-gray-400">
+						(Psst, you can find the source code of this website on{" "}
+						<a
+							href="https://www.github.com/mael-queau/resume"
+							className="text-blue-500 hover:text-blue-400"
+						>
+							<GithubOriginalIcon
+								className="inline-block h-6 align-text-top"
+								color="#3b82f6"
+							/>{" "}
+							GitHub
+						</a>{" "}
+						if you're curious)
+					</p>
 				</Section.Body>
 			</SectionWithRef>
 			<SectionWithRef id="skills" ref={skillsRef}>
