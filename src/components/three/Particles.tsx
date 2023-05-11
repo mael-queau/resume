@@ -9,6 +9,7 @@ import {
 	PointsMaterial,
 } from "three";
 import { calcViewportSize } from "../../utils/viewport";
+import { hexToVector3 } from "../../utils/color";
 
 extend({
 	ShaderMaterial,
@@ -62,25 +63,25 @@ export interface PointsProps {
 export default function Particles(props: PointsProps & ThreePointsProps) {
 	const materialRef = useRef<ShaderMaterial>(null);
 
-	// Create a grid of evenly spaced points using BufferGeometry
-	// First, calculate the number of points needed to fill the viewport
-	const viewportSize = calcViewportSize(
-		props.height,
-		props.width,
-		props.camera.fov,
-		props.camera.position.z,
-	);
+	const { positions, viewportSize } = useMemo(() => {
+		// Create a grid of evenly spaced points using BufferGeometry
+		// First, calculate the number of points needed to fill the viewport
+		const viewportSize = calcViewportSize(
+			props.height,
+			props.width,
+			props.camera.fov,
+			props.camera.position.z,
+		);
 
-	const numPointsX = Math.floor(
-		(viewportSize.width - props.points.margin * 2) / props.points.spacing,
-	);
-	const numPointsY = Math.floor(
-		(viewportSize.height - props.points.margin * 2) / props.points.spacing,
-	);
+		const numPointsX = Math.floor(
+			(viewportSize.width - props.points.margin * 2) / props.points.spacing,
+		);
+		const numPointsY = Math.floor(
+			(viewportSize.height - props.points.margin * 2) / props.points.spacing,
+		);
 
-	const numPoints = numPointsX * numPointsY;
+		const numPoints = numPointsX * numPointsY;
 
-	const positions = useMemo(() => {
 		const positions = new Float32Array(numPoints * 3);
 
 		// Fill the buffer with the positions of the points
@@ -107,21 +108,8 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			}
 		}
 
-		return positions;
-	}, [numPoints]);
-
-	// const uniforms = {
-	// 	time: { value: 0 },
-	// 	pointsMinSize: { value: props.points.size.min },
-	// 	pointsMaxSize: { value: props.points.size.max },
-	// 	noiseScaleX: { value: props.noise.scale.x },
-	// 	noiseScaleY: { value: props.noise.scale.y },
-	// 	noiseStrength: { value: props.noise.strength },
-	// 	colorSeed: { value: props.color.seed },
-	// 	mousePosition: { value: new Vector3() },
-	// 	mouseRadius: { value: props.mouseEffect.radius },
-	// 	mouseStrength: { value: props.mouseEffect.strength },
-	// };
+		return { positions, viewportSize };
+	}, [props.height, props.width, props.camera.fov, props.camera.position.z]);
 
 	const uniforms = useMemo(
 		() => ({
@@ -132,6 +120,8 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			noiseScaleY: { value: props.noise.scale.y },
 			noiseStrength: { value: props.noise.strength },
 			colorSeed: { value: props.color.seed },
+			firstColor: { value: hexToVector3(props.color.color1) },
+			secondColor: { value: hexToVector3(props.color.color2) },
 			mousePosition: { value: new Vector3() },
 			mouseRadius: { value: props.mouseEffect.radius },
 			mouseStrength: { value: props.mouseEffect.strength },
@@ -143,6 +133,8 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			props.noise.scale.y,
 			props.noise.strength,
 			props.color.seed,
+			props.color.color1,
+			props.color.color2,
 			props.mouseEffect.radius,
 			props.mouseEffect.strength,
 		],
@@ -325,6 +317,8 @@ const vertexShader = `
 
 const fragmentShader = `
 		varying float vNoise;
+		uniform vec3 firstColor;
+		uniform vec3 secondColor;
 
 		float hexagon(in vec2 p) {
 			vec2 q = abs(p);
@@ -341,7 +335,7 @@ const fragmentShader = `
 			}
 
 			// Interpolate between #1E4424 and #36BD43 based on the noise value
-			vec3 color = mix(vec3(0.118,0.267,0.141), vec3(0.212,0.741,0.263), (vNoise + 1.0) / 2.0);
+			vec3 color = mix(firstColor, secondColor, (vNoise + 1.0) / 2.0);
 			gl_FragColor = vec4(color, alpha);
 		}
 	`;
