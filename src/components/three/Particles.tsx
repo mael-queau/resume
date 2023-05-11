@@ -62,25 +62,25 @@ export interface PointsProps {
 export default function Particles(props: PointsProps & ThreePointsProps) {
 	const materialRef = useRef<ShaderMaterial>(null);
 
-	// Create a grid of evenly spaced points using BufferGeometry
-	// First, calculate the number of points needed to fill the viewport
-	const viewportSize = calcViewportSize(
-		props.height,
-		props.width,
-		props.camera.fov,
-		props.camera.position.z,
-	);
+	const { positions, viewportSize } = useMemo(() => {
+		// Create a grid of evenly spaced points using BufferGeometry
+		// First, calculate the number of points needed to fill the viewport
+		const viewportSize = calcViewportSize(
+			props.height,
+			props.width,
+			props.camera.fov,
+			props.camera.position.z,
+		);
 
-	const numPointsX = Math.floor(
-		(viewportSize.width - props.points.margin * 2) / props.points.spacing,
-	);
-	const numPointsY = Math.floor(
-		(viewportSize.height - props.points.margin * 2) / props.points.spacing,
-	);
+		const numPointsX = Math.floor(
+			(viewportSize.width - props.points.margin * 2) / props.points.spacing,
+		);
+		const numPointsY = Math.floor(
+			(viewportSize.height - props.points.margin * 2) / props.points.spacing,
+		);
 
-	const numPoints = numPointsX * numPointsY;
+		const numPoints = numPointsX * numPointsY;
 
-	const positions = useMemo(() => {
 		const positions = new Float32Array(numPoints * 3);
 
 		// Fill the buffer with the positions of the points
@@ -107,8 +107,8 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			}
 		}
 
-		return positions;
-	}, [numPoints]);
+		return { positions, viewportSize };
+	}, [props.height, props.width, props.camera.fov, props.camera.position.z]);
 
 	// const uniforms = {
 	// 	time: { value: 0 },
