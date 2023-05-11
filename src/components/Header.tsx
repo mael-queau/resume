@@ -27,7 +27,7 @@ export default function Header(props: HeaderProps) {
 					seed: 62345,
 				}}
 				text={{
-					content: "MAËL QUÉAU",
+					content: props.width > 550 ? "MAËL QUÉAU" : "MAËL\nQUÉAU",
 					size: 16,
 					position: {
 						x: 0,

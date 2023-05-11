@@ -29,11 +29,16 @@ import Section, { SectionWithRef } from "./components/Section";
 import Skills from "./components/Skills";
 import Navbar from "./components/Navbar";
 import { useRef } from "react";
+import { useWindowSize, useDebounce } from "usehooks-ts";
 
 function App() {
 	const aboutRef = useRef<HTMLDivElement>(null);
 	const skillsRef = useRef<HTMLDivElement>(null);
 	const contactRef = useRef<HTMLDivElement>(null);
+
+	const { width, height } = useWindowSize();
+	const debouncedWidth = useDebounce(width, 100);
+	const debouncedHeight = useDebounce(height, 100);
 
 	function scrollToSection(
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -65,7 +70,7 @@ function App() {
 					<span className="underline">Download my resume</span>
 				</Navbar.Item>
 			</Navbar>
-			<Header width={window.innerWidth} height={window.innerHeight} />
+			<Header width={debouncedWidth} height={debouncedHeight} />
 			<SectionWithRef id="about" ref={aboutRef}>
 				<Section.Title title="About Me" />
 				<Section.Subtitle subtitle={"Who am I?"} />

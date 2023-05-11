@@ -134,7 +134,12 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	  `;
 
 	return (
-		<Text font={Comfortaa} fontSize={props.text.size} position={props.position}>
+		<Text
+			font={Comfortaa}
+			fontSize={props.text.size}
+			position={props.position}
+			textAlign="center"
+		>
 			<shaderMaterial
 				ref={materialRef}
 				uniforms={uniforms}
