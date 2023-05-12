@@ -47,7 +47,7 @@ export default function Navbar(props: NavbarProps) {
 			</div>
 			<div
 				className={`${
-					isMenuOpen ? "opacity-100" : "opacity-0"
+					isMenuOpen ? "opacity-100" : "opacity-0 hidden"
 				} flex md:hidden flex-col items-center justify-start w-full h-screen p-6 bg-slate-900 bg-opacity-75 text-white z-50 transition-opacity`}
 				onClick={() => setIsMenuOpen(false)}
 				onKeyDown={() => setIsMenuOpen(false)}
