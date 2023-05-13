@@ -1,5 +1,5 @@
 import { ThreeElements, extend, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
 	BufferAttribute,
 	BufferGeometry,
@@ -140,18 +140,30 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 		],
 	);
 
+	const [mouseInitialized, setMouseInitialized] = useState(false);
+
 	useFrame(({ clock, mouse }) => {
 		if (materialRef.current) {
 			materialRef.current.uniforms.time.value =
 				clock.getElapsedTime() * props.noise.speed;
+
 			// Careful with the mouse position, it's in normalized coordinates
 			// (-1 to +1) so we need to convert it to viewport coordinates
 			// (0 to viewportWidth/Height)
-			materialRef.current.uniforms.mousePosition.value.set(
-				(mouse.x * viewportSize.width) / 2,
-				(mouse.y * viewportSize.height) / 2,
-				0,
-			);
+
+			if (!mouseInitialized) {
+				if (mouse.x === 0 && mouse.y === 0) {
+					materialRef.current.uniforms.mousePosition.value.set(0, 0, -10000);
+				} else {
+					setMouseInitialized(true);
+				}
+			} else {
+				materialRef.current.uniforms.mousePosition.value.set(
+					(mouse.x * viewportSize.width) / 2,
+					(mouse.y * viewportSize.height) / 2,
+					0,
+				);
+			}
 		}
 	});
 
