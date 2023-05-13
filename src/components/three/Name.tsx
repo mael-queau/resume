@@ -1,6 +1,6 @@
 import { Text, shaderMaterial } from "@react-three/drei";
 import { ThreeElements, extend, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Mesh, ShaderMaterial, Vector3 } from "three";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import Comfortaa from "../../assets/fonts/Comfortaa-VariableFont_wght.ttf";
@@ -53,6 +53,7 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 			mousePosition: { value: new Vector3() },
 			mouseRadius: { value: props.mouseEffect.radius * 0.75 },
 			mouseStrength: { value: props.mouseEffect.strength },
+			mouseInitialized: { value: false },
 		}),
 		[props.mouseEffect.radius, props.mouseEffect.strength],
 	);
@@ -71,11 +72,18 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 			// Careful with the mouse position, it's in normalized coordinates
 			// (-1 to +1) so we need to convert it to viewport coordinates
 			// (0 to viewportWidth/Height)
-			materialRef.current.uniforms.mousePosition.value.set(
-				(mouse.x * viewportSize.width) / 2,
-				(mouse.y * viewportSize.height) / 2,
-				0,
-			);
+
+			if (!uniforms.mouseInitialized.value) {
+				if (mouse.x !== 0 || mouse.y !== 0) {
+					uniforms.mouseInitialized.value = true;
+				}
+			} else {
+				materialRef.current.uniforms.mousePosition.value.set(
+					(mouse.x * viewportSize.width) / 2,
+					(mouse.y * viewportSize.height) / 2,
+					0,
+				);
+			}
 		}
 	});
 
@@ -88,6 +96,7 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	    uniform vec3 mousePosition;
 	    uniform float mouseRadius;
 	    uniform float mouseStrength;
+			uniform bool mouseInitialized;
 
 	    void main() {
 	      vPosition = position;
@@ -96,7 +105,7 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	      // Be careful, this is the distance EXCLUDING the z axis
 	      vDistance = distance(vPosition.xy, mousePosition.xy);
 
-	      if (vDistance < mouseRadius) {
+	      if (mouseInitialized && vDistance < mouseRadius) {
 	        float ratio = vDistance / mouseRadius;
 	        float ratioSigmoid = 1.0 / (1.0 + exp(-mouseStrength * (ratio - 0.5)));
 
@@ -116,13 +125,14 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	    uniform vec3 mousePosition;
 	    uniform float mouseRadius;
 	    uniform float mouseStrength;
+			uniform bool mouseInitialized;
 
 	    void main() {
 	      // the point is #1E4424 in color unless it is within the mouse radius
 	      // if so it interpolates #36BD43 using a sigmoid function based on the distance to the mouse
 	      // vec3(0.118,0.267,0.141), vec3(0.212,0.741,0.263)
 
-	      if (vDistance < mouseRadius) {
+	      if (mouseInitialized && vDistance < mouseRadius) {
 	        float ratio = vDistance / mouseRadius;
 	        float ratioSigmoid = 1.0 / (1.0 + exp(-mouseStrength * (ratio - 0.5)));
 

@@ -30,6 +30,7 @@ import Skills from "./components/Skills";
 import Navbar from "./components/Navbar";
 import { useRef } from "react";
 import { useWindowSize, useDebounce } from "usehooks-ts";
+import Link from "./components/Link";
 
 function App() {
 	const aboutRef = useRef<HTMLDivElement>(null);
@@ -101,16 +102,11 @@ function App() {
 					</p>
 					<p className="mb-4 text-gray-400">
 						(Psst, you can find the source code of this website on{" "}
-						<a
+						<Link
 							href="https://www.github.com/mael-queau/resume"
-							className="text-blue-500 hover:text-blue-400"
-						>
-							<GithubOriginalIcon
-								className="inline-block h-6 align-text-top"
-								color="#3b82f6"
-							/>{" "}
-							GitHub
-						</a>{" "}
+							icon={<GithubOriginalIcon />}
+							text="GitHub"
+						/>{" "}
 						if you're curious)
 					</p>
 				</Section.Body>
@@ -174,39 +170,23 @@ function App() {
 					</p>
 					<p className="mb-4">
 						You can also find me on{" "}
-						<a
-							href="
-							https://www.linkedin.com/in/mael-queau/"
-							className="text-blue-500 hover:text-blue-400"
-						>
-							<LinkedinPlainIcon
-								className="inline-block h-6 align-text-top"
-								color="#3b82f6"
-							/>{" "}
-							LinkedIn
-						</a>
+						<Link
+							href="https://www.linkedin.com/in/mael-queau/"
+							icon={<LinkedinPlainIcon />}
+							text="LinkedIn"
+						/>
 						,{" "}
-						<a
+						<Link
 							href="https://www.github.com/mael-queau"
-							className="text-blue-500 hover:text-blue-400"
-						>
-							<GithubOriginalIcon
-								className="inline-block h-6 align-text-top"
-								color="#3b82f6"
-							/>{" "}
-							GitHub
-						</a>{" "}
+							icon={<GithubOriginalIcon />}
+							text="GitHub"
+						/>{" "}
 						and{" "}
-						<a
+						<Link
 							href="https://www.twitter.com/mael_queau"
-							className="text-blue-500 hover:text-blue-400"
-						>
-							<TwitterOriginalIcon
-								className="inline-block h-6 align-text-top"
-								color="#3b82f6"
-							/>{" "}
-							Twitter
-						</a>
+							icon={<TwitterOriginalIcon />}
+							text="Twitter"
+						/>
 						!
 					</p>
 				</Section.Body>
