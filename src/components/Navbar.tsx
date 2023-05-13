@@ -24,6 +24,7 @@ export default function Navbar(props: NavbarProps) {
 				<div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
 					<img src="/images/logo.png" alt="Maël Quéau" className="h-8" />
 					<button
+						type="button"
 						onClick={(e) => {
 							e.preventDefault();
 							window.scrollTo({ top: 0, behavior: "smooth" });
@@ -34,6 +35,7 @@ export default function Navbar(props: NavbarProps) {
 					</button>
 					<div className="md:hidden">
 						<button
+							type="button"
 							className="p-2 rounded-md hover:bg-slate-900"
 							onClick={() => setIsMenuOpen(!isMenuOpen)}
 						>

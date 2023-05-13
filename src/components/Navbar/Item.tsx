@@ -6,6 +6,7 @@ export interface NavbarItemProps {
 export default function NavbarItem(props: NavbarItemProps) {
 	return (
 		<button
+			type="button"
 			className="text-lg font-display text-white hover:text-gray-400"
 			onClick={props.onClick}
 		>

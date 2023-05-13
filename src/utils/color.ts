@@ -1,9 +1,7 @@
 import { Vector3 } from "three";
 
-export function hexToRgb(hex: string) {
-	if (hex.length === 4) {
-		hex = hex.replace(/([^#])/g, "$1$1");
-	}
+export function hexToRgb(_hex: string) {
+	const hex = _hex.length === 4 ? _hex.replace(/([^#])/g, "$1$1") : _hex;
 
 	if (/^#([a-f0-9]{3}){1,2}$/i.test(hex) === false) {
 		throw new Error("Invalid hex color");
