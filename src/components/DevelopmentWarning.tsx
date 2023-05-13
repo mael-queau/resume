@@ -17,6 +17,7 @@ export default function DevelopmentWarning() {
 				</a>
 			</p>
 			<button
+				type="button"
 				className="text-sm underline absolute right-8 top-1/2 -translate-y-1/2"
 				onClick={() => setDismissed(true)}
 			>
