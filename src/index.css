@@ -25,3 +25,7 @@
   font-display: swap;
   src: url('./assets/fonts/Saira-Italic-VariableFont_wdth,wght.ttf') format('truetype');
 }
+
+body {
+  @apply bg-slate-950;
+}
