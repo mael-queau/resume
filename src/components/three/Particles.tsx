@@ -44,6 +44,7 @@ export interface PointsProps {
 	mouseEffect: {
 		radius: number;
 		strength: number;
+		isMobile: boolean;
 	};
 	color: {
 		seed: number;
@@ -125,6 +126,7 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			mousePosition: { value: new Vector3() },
 			mouseRadius: { value: props.mouseEffect.radius },
 			mouseStrength: { value: props.mouseEffect.strength },
+			mouseIsMobile: { value: props.mouseEffect.isMobile },
 		}),
 		[
 			props.points.size.min,
@@ -137,6 +139,7 @@ export default function Particles(props: PointsProps & ThreePointsProps) {
 			props.color.color2,
 			props.mouseEffect.radius,
 			props.mouseEffect.strength,
+			props.mouseEffect.isMobile,
 		],
 	);
 
@@ -195,6 +198,7 @@ const vertexShader = `
 		uniform vec3 mousePosition;
 		uniform float mouseRadius;
 		uniform float mouseStrength;
+		uniform bool mouseIsMobile;
 
 		//
 		// Description : Array and textureless GLSL 2D/3D/4D simplex
@@ -313,7 +317,7 @@ const vertexShader = `
 
 			gl_PointSize = pointsMinSize + (pointsMaxSize - pointsMinSize) * (noise + 1.0) / 2.0;
 
-			if (distance(position, mousePosition) < mouseRadius) {
+			if ((distance(position, mousePosition) < mouseRadius) && !mouseIsMobile) {
 				// If the point is close to the mouse, make it smaller
 				// We want to follow a sigmoid curve between the current point size and the minimum point size
 				float ratio = distance(position, mousePosition) / mouseRadius;
