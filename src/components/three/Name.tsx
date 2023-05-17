@@ -29,6 +29,7 @@ export interface NameProps {
 	mouseEffect: {
 		radius: number;
 		strength: number;
+		isMobile: boolean;
 	};
 	color: {
 		seed: number;
@@ -54,8 +55,13 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 			mouseRadius: { value: props.mouseEffect.radius * 0.75 },
 			mouseStrength: { value: props.mouseEffect.strength },
 			mouseInitialized: { value: false },
+			mouseIsMobile: { value: props.mouseEffect.isMobile },
 		}),
-		[props.mouseEffect.radius, props.mouseEffect.strength],
+		[
+			props.mouseEffect.radius,
+			props.mouseEffect.strength,
+			props.mouseEffect.isMobile,
+		],
 	);
 
 	// Create a grid of evenly spaced points using BufferGeometry
@@ -97,6 +103,7 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	    uniform float mouseRadius;
 	    uniform float mouseStrength;
 			uniform bool mouseInitialized;
+			uniform bool mouseIsMobile;
 
 	    void main() {
 	      vPosition = position;
@@ -105,7 +112,7 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	      // Be careful, this is the distance EXCLUDING the z axis
 	      vDistance = distance(vPosition.xy, mousePosition.xy);
 
-	      if (mouseInitialized && vDistance < mouseRadius) {
+	      if (mouseInitialized && (vDistance < mouseRadius) && !mouseIsMobile) {
 	        float ratio = vDistance / mouseRadius;
 	        float ratioSigmoid = 1.0 / (1.0 + exp(-mouseStrength * (ratio - 0.5)));
 
@@ -126,13 +133,14 @@ export default function Name(props: NameProps & ThreeMeshProps) {
 	    uniform float mouseRadius;
 	    uniform float mouseStrength;
 			uniform bool mouseInitialized;
+			uniform bool mouseIsMobile;
 
 	    void main() {
 	      // the point is #1E4424 in color unless it is within the mouse radius
 	      // if so it interpolates #36BD43 using a sigmoid function based on the distance to the mouse
 	      // vec3(0.118,0.267,0.141), vec3(0.212,0.741,0.263)
 
-	      if (mouseInitialized && vDistance < mouseRadius) {
+	      if (mouseInitialized && (vDistance < mouseRadius) && !mouseIsMobile) {
 	        float ratio = vDistance / mouseRadius;
 	        float ratioSigmoid = 1.0 / (1.0 + exp(-mouseStrength * (ratio - 0.5)));
 
