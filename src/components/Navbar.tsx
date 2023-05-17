@@ -19,7 +19,7 @@ export default function Navbar(props: NavbarProps) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	return (
-		<nav className="fixed top-0 left-0 w-full h-16 bg-slate-950 bg-opacity-75 text-white">
+		<nav className="fixed top-0 left-0 w-full h-16 bg-slate-950 bg-opacity-75 text-white z-50">
 			<div className="flex items-center justify-between h-full px-4">
 				<div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
 					<img src="/images/logo.png" alt="Maël Quéau" className="h-8" />
