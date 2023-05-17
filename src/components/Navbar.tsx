@@ -19,7 +19,7 @@ export default function Navbar(props: NavbarProps) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	return (
-		<nav className="fixed top-0 left-0 w-full h-16 bg-slate-950 bg-opacity-75 text-white z-50">
+		<nav className="fixed top-0 left-0 w-full h-16 bg-slate-950 bg-opacity-75 text-white">
 			<div className="flex items-center justify-between h-full px-4">
 				<div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
 					<img src="/images/logo.png" alt="Maël Quéau" className="h-8" />
@@ -49,10 +49,12 @@ export default function Navbar(props: NavbarProps) {
 			</div>
 			<div
 				className={`${
-					isMenuOpen ? "opacity-100" : "opacity-0 hidden"
-				} flex md:hidden flex-col items-center justify-start w-full h-screen p-6 bg-slate-900 bg-opacity-75 text-white z-50 transition-opacity`}
-				onClick={() => setIsMenuOpen(false)}
-				onKeyDown={() => setIsMenuOpen(false)}
+					isMenuOpen
+						? "opacity-100 translate-y-0"
+						: "opacity-0 -translate-y-full"
+				} flex md:hidden flex-col items-center justify-start w-full h-screen p-6 bg-slate-900 bg-opacity-75 text-white transition-all duration-300 ease-in-out fixed top-0 left-0 mt-16  -z-10`}
+				onClick={() => isMenuOpen && setIsMenuOpen(false)}
+				onKeyDown={() => isMenuOpen && setIsMenuOpen(false)}
 			>
 				{props.children}
 			</div>
