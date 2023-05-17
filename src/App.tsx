@@ -50,7 +50,6 @@ function App() {
 
 	return (
 		<div className="w-full bg-slate-950 text-white">
-			{process.env.NODE_ENV === "production" && <DevelopmentWarning />}
 			{process.env.NODE_ENV === "development" && <Stats />}
 			<Navbar>
 				<Navbar.Item onClick={(e) => scrollToSection(e, aboutRef)}>
