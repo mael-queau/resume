@@ -1,4 +1,5 @@
 import { Stats } from "@react-three/drei";
+import { useRef } from "react";
 import {
 	Css3OriginalIcon,
 	DenojsOriginalIcon,
@@ -23,14 +24,12 @@ import {
 	VscodeOriginalIcon,
 	VuejsOriginalIcon,
 } from "react-devicons";
-import DevelopmentWarning from "./components/DevelopmentWarning";
+import { useDebounce, useWindowSize } from "usehooks-ts";
 import Header from "./components/Header";
+import Link from "./components/Link";
+import Navbar from "./components/Navbar";
 import Section, { SectionWithRef } from "./components/Section";
 import Skills from "./components/Skills";
-import Navbar from "./components/Navbar";
-import { useRef } from "react";
-import { useWindowSize, useDebounce } from "usehooks-ts";
-import Link from "./components/Link";
 
 function App() {
 	const aboutRef = useRef<HTMLDivElement>(null);
