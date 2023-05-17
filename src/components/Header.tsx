@@ -7,15 +7,16 @@ export interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-	const boxRef = useRef<HTMLDivElement>(null);
+	const smallBoxRef = useRef<HTMLDivElement>(null);
+	const largeBoxRef = useRef<HTMLDivElement>(null);
 
 	return (
-		<header className="w-full h-screen pt-8">
-			<div className="w-full h-full" ref={boxRef}>
-				<div className="w-full h-full hidden sm:block">
+		<header className="w-full h-[calc(100vh-4rem)] sm:h-screen pt-12 sm:pt-8">
+			<div className="w-full h-full">
+				<div className="w-full h-full hidden sm:block" ref={largeBoxRef}>
 					<ParticlesBanner
-						width={boxRef.current?.clientWidth ?? props.width}
-						height={boxRef.current?.clientHeight ?? props.height}
+						width={largeBoxRef.current?.clientWidth ?? props.width}
+						height={largeBoxRef.current?.clientHeight ?? props.height}
 						camera={{
 							fov: 10,
 							far: 5000,
@@ -64,10 +65,10 @@ export default function Header(props: HeaderProps) {
 						}}
 					/>
 				</div>
-				<div className="w-full h-full sm:hidden">
+				<div className="w-full h-full sm:hidden" ref={smallBoxRef}>
 					<ParticlesBanner
-						width={boxRef.current?.clientWidth ?? props.width}
-						height={boxRef.current?.clientHeight ?? props.height}
+						width={smallBoxRef.current?.clientWidth ?? props.width}
+						height={smallBoxRef.current?.clientHeight ?? props.height}
 						camera={{
 							fov: 10,
 							far: 5000,
